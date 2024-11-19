@@ -74,4 +74,25 @@ return {
       end
     end,
   },
+  {
+    'numToStr/Comment.nvim',
+    config = function()
+      vim.keymap.set('n', '<leader>/', function()
+        require('Comment.api').toggle.linewise.current()
+      end)
+
+      vim.keymap.set('v', '<leader>/', "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>")
+
+      --[[ require('Comment').setup {
+        toggler = {
+          line = '<c-/>',
+          block = '<c-/>',
+        },
+        opleader = {
+          line = '<c-/>',
+          block = '<c-/>',
+        },
+      } ]]
+    end,
+  },
 }
