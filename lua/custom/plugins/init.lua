@@ -88,8 +88,16 @@ return {
   {
     'thePrimeagen/harpoon',
     config = function()
+      -- vim.keymap.set('n', '<C-[>', function()
+      --   require('harpoon.mark').rm_file()
+      -- end)
+      --
+      -- vim.keymap.set('n', '<C-l', function()
+      --   require('harpoon.mark').to_quickfix_list()
+      -- end)
+
       vim.keymap.set('n', '<C-]>', function()
-        require('harpoon.mark').add_file()
+        require('harpoon.mark').toggle_file()
       end)
 
       vim.keymap.set('n', '<C-p>', function()
