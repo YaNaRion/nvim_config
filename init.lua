@@ -26,7 +26,7 @@ end)
 vim.opt.breakindent = true
 
 -- quick :Ex
-vim.keymap.set('n', '<leader>p', vim.cmd.Ex)
+vim.keymap.set('n', '<C-f>', vim.cmd.Ex)
 
 -- Save undo history
 vim.opt.undofile = true
