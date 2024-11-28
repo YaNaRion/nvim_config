@@ -1,3 +1,11 @@
+local color = 'rose-pine'
+function ColorMyPencils(colorFunc)
+  colorFunc = colorFunc or color
+  vim.cmd.colorscheme(colorFunc)
+  vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+end
+
 return {
   {
     'olivercederborg/poimandres.nvim',
@@ -8,18 +16,22 @@ return {
     'folke/tokyonight.nvim',
     priority = 1000,
     init = function()
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      -- vim.cmd.colorscheme 'tokyonight-night'
-      vim.cmd.colorscheme 'default'
-
-      -- You can configure highlights by doing something like:
+      vim.cmd.colorscheme(color)
+      vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
       vim.cmd.hi 'Comment gui=none'
     end,
   },
   {
     'FrenzyExists/aquarium-vim',
+    priority = 1000,
+  },
+  {
+    'shaunsingh/nord.nvim',
+    priority = 1000,
+  },
+  {
+    'rose-pine/neovim',
     priority = 1000,
   },
 }
