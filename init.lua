@@ -57,7 +57,7 @@ vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 vim.opt.inccommand = 'split'
 
 -- Show which line your cursor is on
-vim.opt.cursorline = true
+-- vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 15
@@ -128,6 +128,13 @@ require('lazy').setup({
       },
       current_line_blame = true,
       current_line_blame_formatter = '<author>, <author_time:%R> - <summary>',
+      current_line_blame_opts = {
+        delay = 750,
+        ignore_whitespace = false,
+        virt_text = true,
+        virt_text_priority = 100,
+        virt_text_pos = 'eol',
+      },
     },
   },
 
@@ -730,7 +737,7 @@ require('lazy').setup({
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line', si active probleme au lancement de nvim
   require 'kickstart.plugins.lint',
-  require 'kickstart.plugins.autopairs',
+  -- require 'kickstart.plugins.autopairs',
   -- require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
