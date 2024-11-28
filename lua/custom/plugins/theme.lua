@@ -1,7 +1,12 @@
 local color = 'rose-pine'
 function ColorMyPencils(colorFunc)
-  colorFunc = colorFunc or color
-  vim.cmd.colorscheme(colorFunc)
+  if colorFunc then
+    colorFunc = tostring(colorFunc)
+    vim.cmd.colorscheme(colorFunc)
+  else
+    vim.cmd.colorscheme(color)
+  end
+
   vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
   vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
 end
@@ -21,14 +26,6 @@ return {
       vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
       vim.cmd.hi 'Comment gui=none'
     end,
-  },
-  {
-    'FrenzyExists/aquarium-vim',
-    priority = 1000,
-  },
-  {
-    'shaunsingh/nord.nvim',
-    priority = 1000,
   },
   {
     'rose-pine/neovim',
