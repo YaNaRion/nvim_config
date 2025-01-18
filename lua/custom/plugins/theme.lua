@@ -1,4 +1,4 @@
-local color = 'rose-pine-moon'
+local color = 'ashen'
 function ColorMyPencils(colorFunc)
   if colorFunc then
     colorFunc = tostring(colorFunc)
@@ -36,6 +36,10 @@ return {
   },
   {
     'rose-pine/neovim',
+    priority = 1000,
+  },
+  {
+    'ficcdaf/ashen.nvim',
     priority = 1000,
   },
 }
