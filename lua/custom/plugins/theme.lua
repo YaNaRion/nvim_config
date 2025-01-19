@@ -1,4 +1,4 @@
-local color = 'ashen'
+local color = 'vscode'
 function ColorMyPencils(colorFunc)
   if colorFunc then
     colorFunc = tostring(colorFunc)
@@ -7,8 +7,8 @@ function ColorMyPencils(colorFunc)
     vim.cmd.colorscheme(color)
   end
 
-  vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-  vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+  -- vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+  -- vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
 end
 
 return {
@@ -21,8 +21,8 @@ return {
     priority = 1000,
     init = function()
       vim.cmd.colorscheme(color)
-      vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-      vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+      -- vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+      -- vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
       vim.cmd.hi 'Comment gui=none'
     end,
   },
@@ -40,6 +40,10 @@ return {
   },
   {
     'ficcdaf/ashen.nvim',
+    priority = 1000,
+  },
+  {
+    'Mofiqul/vscode.nvim',
     priority = 1000,
   },
 }
