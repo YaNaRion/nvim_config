@@ -56,6 +56,8 @@ vim.opt.splitbelow = true
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
 
+vim.keymap.set('t', '<C-x>', vim.api.nvim_replace_termcodes('<C-\\><C-N>', true, true, true))
+
 -- Show which line your cursor is on
 -- vim.opt.cursorline = true
 
