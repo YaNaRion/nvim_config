@@ -1,4 +1,4 @@
-local color = 'vscode'
+local color = 'everforest'
 function ColorMyPencils(colorFunc)
   if colorFunc then
     colorFunc = tostring(colorFunc)
@@ -7,8 +7,8 @@ function ColorMyPencils(colorFunc)
     vim.cmd.colorscheme(color)
   end
 
-  -- vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-  -- vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
 end
 
 return {
@@ -31,8 +31,13 @@ return {
     priority = 1000,
   },
   {
-    'shaunsingh/nord.nvim',
+    'sainnhe/everforest',
     priority = 1000,
+    config = function()
+      vim.g.everforest_enable_italic = true
+      vim.g.everforest_background = 'hard'
+      vim.g.everforest_ui_contrast = 'high'
+    end
   },
   {
     'rose-pine/neovim',
@@ -46,4 +51,13 @@ return {
     'Mofiqul/vscode.nvim',
     priority = 1000,
   },
+  {
+    "rockyzhang24/arctic.nvim",
+    branch = "v2",
+    dependencies = { "rktjmp/lush.nvim" }
+  },
+  {
+    'navarasu/onedark.nvim',
+    style = "Darker",
+  }
 }
