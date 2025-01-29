@@ -4,6 +4,8 @@ vim.g.maplocalleader = ' '
 
 vim.g.have_nerd_font = true
 
+vim.opt.guicursor = "n-v-i-c:block-Cursor"
+
 -- Make line numbers default
 vim.opt.number = true
 vim.opt.relativenumber = true
