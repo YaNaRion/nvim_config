@@ -4,7 +4,7 @@ vim.g.maplocalleader = ' '
 
 vim.g.have_nerd_font = true
 
-vim.opt.guicursor = "n-v-i-c:block-Cursor"
+vim.opt.guicursor = 'n-v-i-c:block-Cursor'
 
 -- Make line numbers default
 vim.opt.number = true
@@ -119,7 +119,7 @@ vim.opt.rtp:prepend(lazypath)
 -- [[ Configure and install plugins ]]
 require('lazy').setup({
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
-  {                   -- Adds git related signs to the gutter, as well as utilities for managing changes
+  { -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
     opts = {
       signs = {
@@ -141,13 +141,11 @@ require('lazy').setup({
     },
   },
 
-
-
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line', si active probleme au lancement de nvim
   require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
-  -- require 'kickstart.plugins.neo-tree',
+  require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   { import = 'plugins' },

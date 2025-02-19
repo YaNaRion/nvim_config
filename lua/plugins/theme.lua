@@ -1,4 +1,4 @@
-local color = 'everforest'
+local color = 'default'
 function ColorMyPencils(colorFunc)
   if colorFunc then
     colorFunc = tostring(colorFunc)
@@ -37,7 +37,7 @@ return {
       vim.g.everforest_enable_italic = true
       vim.g.everforest_background = 'hard'
       vim.g.everforest_ui_contrast = 'high'
-    end
+    end,
   },
   {
     'rose-pine/neovim',
@@ -52,12 +52,12 @@ return {
     priority = 1000,
   },
   {
-    "rockyzhang24/arctic.nvim",
-    branch = "v2",
-    dependencies = { "rktjmp/lush.nvim" }
+    'rockyzhang24/arctic.nvim',
+    branch = 'v2',
+    dependencies = { 'rktjmp/lush.nvim' },
   },
   {
     'navarasu/onedark.nvim',
-    style = "Darker",
-  }
+    style = 'Darker',
+  },
 }
