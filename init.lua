@@ -2,6 +2,10 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- vim.opt.termguicolors = true
+vim.opt.termguicolors = true
+-- vim.cmd('colorscheme base16-default-dark')
+
 vim.g.have_nerd_font = true
 
 vim.opt.guicursor = 'n-v-i-c:block-Cursor'
@@ -141,11 +145,11 @@ require('lazy').setup({
     },
   },
 
-  -- require 'kickstart.plugins.debug',
+  require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line', si active probleme au lancement de nvim
   require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
-  require 'kickstart.plugins.neo-tree',
+  -- require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   { import = 'plugins' },

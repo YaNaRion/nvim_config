@@ -7,9 +7,7 @@
 -- kickstart.nvim and not kitchen-sink.nvim ;)
 
 return {
-  -- NOTE: Yes, you can install new plugins here!
   'mfussenegger/nvim-dap',
-  -- NOTE: And you can specify dependencies as well
   dependencies = {
     -- Creates a beautiful debugger UI
     'rcarriga/nvim-dap-ui',
@@ -29,11 +27,11 @@ return {
     local dapui = require 'dapui'
     return {
       -- Basic debugging keymaps, feel free to change to your liking!
-      { '<F5>', dap.continue, desc = 'Debug: Start/Continue' },
-      { '<F1>', dap.step_into, desc = 'Debug: Step Into' },
-      { '<F2>', dap.step_over, desc = 'Debug: Step Over' },
-      { '<F3>', dap.step_out, desc = 'Debug: Step Out' },
-      { '<leader>b', dap.toggle_breakpoint, desc = 'Debug: Toggle Breakpoint' },
+      { '<F9>', dap.continue, desc = 'Debug: Start/Continue' },
+      { '<F10>', dap.step_over, desc = 'Debug: Step Over' },
+      { '<F11>', dap.step_into, desc = 'Debug: Step Into' },
+      { '<F12>', dap.step_out, desc = 'Debug: Step Out' },
+      { '<C-b>', dap.toggle_breakpoint, desc = 'Debug: Toggle Breakpoint' },
       {
         '<leader>B',
         function()

@@ -1,4 +1,4 @@
-local color = 'default'
+local color = 'adwaita'
 function ColorMyPencils(colorFunc)
   if colorFunc then
     colorFunc = tostring(colorFunc)
@@ -59,5 +59,11 @@ return {
   {
     'navarasu/onedark.nvim',
     style = 'Darker',
+  },
+
+  {
+    'Mofiqul/adwaita.nvim',
+    lazy = false,
+    priority = 1000,
   },
 }
