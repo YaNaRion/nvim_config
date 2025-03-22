@@ -1,4 +1,4 @@
-local color = 'adwaita'
+local color = 'catppuccin'
 function ColorMyPencils(colorFunc)
   if colorFunc then
     colorFunc = tostring(colorFunc)
@@ -7,8 +7,8 @@ function ColorMyPencils(colorFunc)
     vim.cmd.colorscheme(color)
   end
 
-  vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-  vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+  -- vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+  -- vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
 end
 
 return {
@@ -66,4 +66,5 @@ return {
     lazy = false,
     priority = 1000,
   },
+  { 'catppuccin/nvim', name = 'catppuccin', priority = 1000 },
 }
