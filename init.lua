@@ -4,7 +4,7 @@ vim.g.maplocalleader = ' '
 
 -- vim.opt.termguicolors = true
 vim.opt.termguicolors = true
--- vim.cmd('colorscheme base16-default-dark')
+-- vim.cmd 'colorscheme base16-default-dark'
 
 vim.g.have_nerd_font = true
 
@@ -18,7 +18,7 @@ vim.opt.relativenumber = true
 vim.opt.mouse = 'a'
 
 -- Don't show the mode, since it's already in the status line
-vim.opt.showmode = false
+-- vim.opt.showmode = false
 
 -- Sync clipboard between OS and Neovim.
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
@@ -145,7 +145,7 @@ require('lazy').setup({
     },
   },
 
-  require 'kickstart.plugins.debug',
+  -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line', si active probleme au lancement de nvim
   require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
