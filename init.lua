@@ -1,14 +1,18 @@
+--
+vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'Pmenu', { bg = 'none' })
 -- Set <space> as the leader key
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- vim.opt.termguicolors = true
-vim.opt.termguicolors = true
--- vim.cmd('colorscheme base16-default-dark')
+-- vim.cmd 'colorscheme default'
 
 vim.g.have_nerd_font = true
 
-vim.opt.guicursor = 'n-v-i-c:block-Cursor'
+-- vim.opt.guicursor = 'n-v-i-c:block-Cursor'
 
 -- Make line numbers default
 vim.opt.number = true
