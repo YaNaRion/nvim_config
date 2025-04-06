@@ -1,4 +1,4 @@
-local color = 'default'
+local color = 'vague'
 function ColorMyPencils(colorFunc)
   if colorFunc then
     colorFunc = tostring(colorFunc)
@@ -11,6 +11,7 @@ function ColorMyPencils(colorFunc)
   vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
   vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
   vim.api.nvim_set_hl(0, 'Pmenu', { bg = 'none' })
+  -- vim.opt.pumblend = 0
 end
 
 return {
@@ -29,6 +30,7 @@ return {
       vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
       vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
       vim.api.nvim_set_hl(0, 'Pmenu', { bg = 'none' })
+      -- vim.opt.pumblend = 0
     end,
   },
   {
@@ -82,7 +84,7 @@ return {
     'vague2k/vague.nvim',
     config = function()
       require('vague').setup {
-        transparent = false, -- don't set background
+        transparent = true, -- don't set background
         style = {
           -- "none" is the same thing as default. But "italic" and "bold" are also valid options
           boolean = 'bold',

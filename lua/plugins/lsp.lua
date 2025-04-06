@@ -183,6 +183,7 @@ return {
         rust_analyzer = {},
         jsonlint = {},
         ols = {},
+        -- llm_ls = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -248,7 +249,7 @@ return {
           'html',
           'cssls',
           -- 'emmet_language_server',
-          'htmx',
+          -- 'htmx',
           'tailwindcss',
           'ts_ls',
           -- 'astro',

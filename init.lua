@@ -13,7 +13,7 @@ vim.opt.termguicolors = true
 
 vim.g.have_nerd_font = true
 
--- vim.opt.guicursor = 'n-v-i-c:block-Cursor'
+vim.opt.guicursor = 'n-v-i-c:block-Cursor'
 
 -- Make line numbers default
 vim.opt.number = true
