@@ -5,7 +5,7 @@ return {
       vim.keymap.set('n', '<C-]>', function()
         require('harpoon.mark').toggle_file()
       end)
-      vim.keymap.set('n', '<C-p>', function()
+      vim.keymap.set('n', '<C-[>', function()
         require('harpoon.ui').toggle_quick_menu()
       end)
       vim.keymap.set('n', '<F1>', function()
