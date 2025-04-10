@@ -1,0 +1,87 @@
+return {}
+-- return {
+--   'huggingface/llm.nvim',
+--   enabled = true,
+--   event = 'VeryLazy',
+--
+--   opts = {
+--     -- api_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijg3NmUzNDFlLTFlYWMtNDA3MC1hNGQyLTRlMTFkMjIzNDNlNyJ9.9OHxIz03Yf5R4FR1jU8BuhZbXOrBLs5ocNPLQDzie3Q', -- cf Install paragraph
+--     model = 'deepseek-coder:6.7b', -- the model ID, behavior depends on backend
+--     backend = 'ollama', -- backend ID, "huggingface" | "ollama" | "openai" | "tgi"
+--     url = 'http://localhost:11434', -- the http url of the backend
+--     tokens_to_clear = { '<|endoftext|>' }, -- tokens to remove from the model's output
+--     -- parameters that are added to the request body, values are arbitrary, you can set any field:value pair here it will be passed as is to the backend
+--     request_body = {
+--       parameters = {
+--         max_new_tokens = 60,
+--         temperature = 0.2,
+--         top_p = 0.95,
+--       },
+--     },
+--     -- set this if the model supports fill in the middle
+--     fim = {
+--       enabled = true,
+--       prefix = '<fim_prefix>',
+--       middle = '<fim_middle>',
+--       suffix = '<fim_suffix>',
+--     },
+--
+--     debounce_ms = 150,
+--     accept_keymap = '<Tab>',
+--     dismiss_keymap = '<S-Tab>',
+--     tls_skip_verify_insecure = false,
+--     -- llm-ls configuration, cf llm-ls section
+--     lsp = {
+--       bin_path = vim.api.nvim_call_function('stdpath', { 'data' }) .. '/mason/bin/llm-ls',
+--       cmd_env = { LLM_LOG_LEVEL = 'DEBUG' },
+--     },
+--     tokenizer = nil, -- cf Tokenizer paragraph
+--     context_window = 1024, -- max number of tokens for the context window
+--     enable_suggestions_on_startup = true,
+--     enable_suggestions_on_files = '*', -- pattern matching syntax to enable suggestions on specific files, either a string or a list of strings
+--     disable_url_path_completion = false, -- cf Backend
+--   },
+-- }
+--
+-- return {
+--   'huggingface/llm.nvim',
+--   enabled = false,
+--   event = 'VeryLazy',
+--   keys = {
+--     {
+--       '<c-j>',
+--       function()
+--         require('llm.completion').complete()
+--       end,
+--       mode = 'i',
+--       desc = 'complete',
+--     },
+--   },
+--   opts = {
+--     debounce_ms = 150,
+--     accept_keymap = '<Tab>',
+--     dismiss_keymap = '<S-Tab>',
+--     lsp = {
+--       bin_path = '/etc/profiles/per-user/s1n7ax/bin/llm-ls',
+--       cmd_env = { LLM_LOG_LEVEL = 'DEBUG' },
+--     },
+--
+--     backend = 'ollama',
+--     model = 'deepseek-coder:6.7b',
+--     url = 'http://localhost:11434', -- llm-ls uses "/api/generate"
+--     -- cf https://github.com/ollama/ollama/blob/main/docs/api.md#parameters
+--     fim = {
+--       enabled = true,
+--       prefix = '<｜fim▁begin｜>',
+--       suffix = '<｜fim▁hole｜>',
+--       middle = '<｜fim▁end｜>',
+--     },
+--     request_body = {
+--       -- Modelfile options for the model you use
+--       options = {
+--         temperature = 0.2,
+--         top_p = 0.95,
+--       },
+--     },
+--   },
+-- }
