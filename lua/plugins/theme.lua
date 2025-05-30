@@ -24,13 +24,7 @@ return {
     priority = 1000,
     transparent = true,
     init = function()
-      vim.cmd.colorscheme(color)
-      -- transparent background
-      vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-      vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
-      vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
-      vim.api.nvim_set_hl(0, 'Pmenu', { bg = 'none' })
-      -- vim.opt.pumblend = 0
+      ColorMyPencils(color)
     end,
   },
   {
@@ -123,7 +117,7 @@ return {
             footer = 'italic',
           },
           lsp = {
-            diagnostic_error = 'bold',
+            diagnostic_error = 'none',
             diagnostic_hint = 'none',
             diagnostic_info = 'italic',
             diagnostic_warn = 'bold',

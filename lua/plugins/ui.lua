@@ -79,11 +79,11 @@ return {
   {
     'numToStr/Comment.nvim',
     config = function()
-      vim.keymap.set('n', '<leader>/', function()
+      vim.keymap.set('n', '<C-/>', function()
         require('Comment.api').toggle.linewise.current()
       end)
 
-      vim.keymap.set('v', '<leader>/', "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>")
+      vim.keymap.set('v', '<C-/>', "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>")
     end,
   },
 }
