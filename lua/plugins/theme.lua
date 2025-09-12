@@ -118,7 +118,7 @@ return {
             footer = 'italic',
           },
           lsp = {
-            diagnostic_error = 'bold',
+            diagnostic_error = 'none',
             diagnostic_hint = 'none',
             diagnostic_info = 'italic',
             diagnostic_warn = 'bold',
