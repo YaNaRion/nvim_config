@@ -11,7 +11,7 @@ function ColorMyPencils(colorFunc)
   vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
   vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
   vim.api.nvim_set_hl(0, 'Pmenu', { bg = 'none' })
-  -- vim.opt.pumblend = 0
+  vim.opt.pumblend = 0
 end
 
 return {
@@ -24,13 +24,7 @@ return {
     priority = 1000,
     transparent = true,
     init = function()
-      vim.cmd.colorscheme(color)
-      -- transparent background
-      vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-      vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
-      vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
-      vim.api.nvim_set_hl(0, 'Pmenu', { bg = 'none' })
-      -- vim.opt.pumblend = 0
+      ColorMyPencils(color)
     end,
   },
   {
@@ -76,6 +70,7 @@ return {
 
   {
     'Mofiqul/adwaita.nvim',
+    transparent = true,
     lazy = false,
     priority = 1000,
   },

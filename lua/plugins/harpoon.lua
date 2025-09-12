@@ -2,10 +2,10 @@ return {
   {
     'thePrimeagen/harpoon',
     config = function()
-      vim.keymap.set('n', '<C-]>', function()
+      vim.keymap.set('n', '<C-8>', function()
         require('harpoon.mark').toggle_file()
       end)
-      vim.keymap.set('n', '<C-[>', function()
+      vim.keymap.set('n', '<C-7>', function()
         require('harpoon.ui').toggle_quick_menu()
       end)
       vim.keymap.set('n', '<F1>', function()
