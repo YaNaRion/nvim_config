@@ -1,4 +1,4 @@
-local color = 'vague'
+local color = 'rose-pine'
 function ColorMyPencils(colorFunc)
   if colorFunc then
     colorFunc = tostring(colorFunc)
@@ -160,4 +160,11 @@ return {
     end,
   },
   { 'catppuccin/nvim', name = 'catppuccin', priority = 1000 },
+  { 'diegoulloao/neofusion.nvim', priority = 1000, config = true, opts = ... },
+  {
+    url = 'https://codeberg.org/jthvai/lavender.nvim',
+    branch = 'stable', -- versioned tags + docs updates from main
+    lazy = false,
+    priority = 1000,
+  },
 }

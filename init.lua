@@ -13,6 +13,8 @@ vim.opt.termguicolors = true
 
 vim.g.have_nerd_font = true
 
+vim.g.shiftwidth = 4
+
 vim.opt.guicursor = 'n-v-i-c:block-Cursor'
 
 -- Make line numbers default
@@ -132,12 +134,14 @@ require('lazy').setup({
     'lewis6991/gitsigns.nvim',
     opts = {
       signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
+        -- add = { text = 'f1303' },
+        add = { text = '󱌃' },
+        change = { text = '󰳉' },
+        delete = { text = '' },
+        topdelete = { text = '' },
+        changedelete = { text = '󰳉' },
       },
+
       current_line_blame = true,
       current_line_blame_formatter = '<author>, <author_time:%R> - <summary>',
       current_line_blame_opts = {

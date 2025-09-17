@@ -290,6 +290,7 @@ return {
           'yamlls',
           'jsonls',
           'eslint',
+          'htmx-lsp',
           -- "hls",
           -- "zls",
           -- 'marksman',
@@ -342,6 +343,7 @@ return {
         json = { 'jsonlint' },
         go = { 'golines' },
         c = { 'clang' },
+        cpp = { 'clang' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
