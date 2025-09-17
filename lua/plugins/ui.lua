@@ -2,13 +2,27 @@
 --  I promise not to create any merge conflicts in this directory :)
 --
 -- See the kickstart.nvim README for more information
+function ShellType()
+  local os_name = vim.loop.os_uname().sysname
+
+  if os_name == 'Linux' then
+    return vim.o.shell
+  elseif os_name == 'Darwin' then -- macOS
+    return vim.o.shell
+  elseif os_name == 'Windows_NT' then -- Windows
+    return 'powershell'
+  else
+    print('Running on an unknown OS: ' .. os_name)
+  end
+end
+
 return {
   {
     'NvChad/nvterm',
     config = function()
       require('nvterm').setup {
         terminals = {
-          shell = vim.o.shell,
+          shell = ShellType(),
           list = {},
           type_opts = {
             float = {

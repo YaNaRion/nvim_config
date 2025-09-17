@@ -134,7 +134,6 @@ require('lazy').setup({
     'lewis6991/gitsigns.nvim',
     opts = {
       signs = {
-        -- add = { text = 'f1303' },
         add = { text = '󱌃' },
         change = { text = '󰳉' },
         delete = { text = '' },

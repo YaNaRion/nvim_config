@@ -24,5 +24,4 @@ return {
       indent = { enable = true, disable = { 'ruby' } },
     },
   },
-
 }

@@ -221,6 +221,7 @@ return {
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         ts_ls = {},
+        eslint = {},
         --
 
         lua_ls = {
@@ -269,11 +270,11 @@ return {
         },
 
         ensure_installed = {
-          'fortls',
+          -- 'fortls',
           -- 'nil_ls',
           'bashls',
           'lua_ls',
-          'rust_analyzer',
+          -- 'rust_analyzer',
           'gopls',
           -- 'templ',
           'html',
@@ -284,7 +285,7 @@ return {
           'ts_ls',
           -- 'astro',
           -- "gdscript",
-          'pylsp',
+          -- 'pylsp',
           'clangd',
           -- 'prismals',
           'yamlls',
