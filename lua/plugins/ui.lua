@@ -100,4 +100,7 @@ return {
       vim.keymap.set('v', '<C-/>', "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>")
     end,
   },
+  {
+    'ThePrimeagen/vim-be-good',
+  },
 }

@@ -1,8 +1,3 @@
---
-vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
-vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
-vim.api.nvim_set_hl(0, 'Pmenu', { bg = 'none' })
 -- Set <space> as the leader key
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
@@ -114,7 +109,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 -- [[ Install `lazy.nvim` plugin manager ]]
---    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
@@ -133,10 +127,10 @@ require('lazy').setup({
     opts = {
       signs = {
         add = { text = '󱌃' },
-        change = { text = '󰳉' },
-        delete = { text = '' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
+        change = { text = '' },
+        delete = { text = '󰳭' },
+        topdelete = { text = '' },
+        changedelete = { text = '' },
       },
       current_line_blame = true,
       current_line_blame_formatter = '<author>, <author_time:%R> - <summary>',
@@ -150,7 +144,7 @@ require('lazy').setup({
     },
   },
 
-  -- require 'kickstart.plugins.debug',
+  require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line', si active probleme au lancement de nvim
   require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',

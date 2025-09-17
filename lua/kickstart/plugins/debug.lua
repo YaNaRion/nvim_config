@@ -62,6 +62,7 @@ return {
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
         'delve',
+        'codelldb',
       },
     }
 
@@ -111,5 +112,56 @@ return {
         detached = vim.fn.has 'win32' == 0,
       },
     }
+
+    require('dap').adapters.gdb = {
+      type = 'executable',
+      command = 'gdb', -- Or the full path to your gdb executable
+      args = { '-i', 'dap' }, -- Use DAP interface with GDB
+    }
+
+    require('dap').configurations.c = {
+      {
+        name = 'Launch',
+        type = 'gdb',
+        request = 'launch',
+        program = function()
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/build', 'file')
+        end,
+        cwd = '${workspaceFolder}',
+        stopOnEntry = true,
+      },
+    }
+
+    require('dap').configurations.cpp = require('dap').configurations.c
+    -- dap.configurations.cpp = dap.configurations.c -- C++ can often use the same configuration
+    --
+    -- require('dap').configurations.cpp = {
+    --   {
+    --     name = 'Launch',
+    --     type = 'cpp', -- Matches the adapter name
+    --     request = 'launch',
+    --     program = function()
+    --       return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    --     end,
+    --     cwd = '${workspaceFolder}',
+    --     stopOnEntry = true,
+    --     externalConsole = false,
+    --   },
+    --   -- You can also add an "attach" configuration for attaching to a running process
+    -- }
+    -- require('dap').configurations.codelldb = {
+    --   {
+    --     name = 'Launch',
+    --     type = 'c', -- Matches the adapter name
+    --     request = 'launch',
+    --     program = function()
+    --       return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    --     end,
+    --     cwd = '${workspaceFolder}',
+    --     stopOnEntry = true,
+    --     externalConsole = false,
+    --   },
+    -- You can also add an "attach" configuration for attaching to a running process
+    --    }
   end,
 }
