@@ -1,4 +1,4 @@
-local color = 'rose-pine'
+local color = 'poimandres'
 function ColorMyPencils(colorFunc)
   if colorFunc then
     colorFunc = tostring(colorFunc)
@@ -8,10 +8,18 @@ function ColorMyPencils(colorFunc)
   end
 
   vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
   vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
   vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
-  vim.api.nvim_set_hl(0, 'Pmenu', { bg = 'none' })
-  vim.opt.pumblend = 0
+  vim.api.nvim_set_hl(0, 'SignColumn', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'VertSplit', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'StatusLine', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'TabLineFill', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'EndOfBuffer', { bg = 'none', fg = 'none' })
+  vim.api.nvim_set_hl(0, 'LineNr', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'CursorLineNr', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'LineNrAbove', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'LineNrBelow', { bg = 'none' })
 end
 
 return {
@@ -66,6 +74,7 @@ return {
   {
     'navarasu/onedark.nvim',
     style = 'Darker',
+    transparent = true,
   },
 
   {
@@ -167,5 +176,19 @@ return {
     branch = 'stable', -- versioned tags + docs updates from main
     lazy = false,
     priority = 1000,
+  },
+  {
+    'zenbones-theme/zenbones.nvim',
+    -- Optionally install Lush. Allows for more configuration or extending the colorscheme
+    -- If you don't want to install lush, make sure to set g:zenbones_compat = 1
+    -- In Vim, compat mode is turned on as Lush only works in Neovim.
+    dependencies = 'rktjmp/lush.nvim',
+    lazy = false,
+    priority = 1000,
+    -- you can set set configuration options here
+    -- config = function()
+    --     vim.g.zenbones_darken_comments = 45
+    --     vim.cmd.colorscheme('zenbones')
+    -- end
   },
 }

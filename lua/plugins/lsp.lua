@@ -213,6 +213,23 @@ return {
         },
         jsonlint = {},
         ols = {},
+        hyprls = {},
+        -- ltex_plus = {
+        --   cmd = { 'ltex-ls-plus' },
+        --   filetypes = { 'markdown', 'tex', 'latex', 'text' },
+        --   settings = {
+        --     ltex = {
+        --       language = 'fr',
+        --       additionalRules = {
+        --         enablePickyRules = true,
+        --         motherTongue = 'fr',
+        --       },
+        --       dictionary = {
+        --         ['fr'] = { 'Neovim', 'Lua', 'ltex-ls-plus' },
+        --       },
+        --     },
+        --   },
+        -- },
         -- llm_ls = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -287,6 +304,7 @@ return {
           -- "gdscript",
           -- 'pylsp',
           'clangd',
+          'ols',
           -- 'prismals',
           'yamlls',
           'jsonls',
