@@ -27,7 +27,7 @@ return {
     local dapui = require 'dapui'
     return {
       -- Basic debugging keymaps, feel free to change to your liking!
-      { '<F9>', dap.continue, desc = 'Debug: Start/Continue' },
+      { '<F9>', dap.continue, desc = 'Debug: Continue' },
       { '<F10>', dap.step_over, desc = 'Debug: Step Over' },
       { '<F11>', dap.step_into, desc = 'Debug: Step Into' },
       { '<F12>', dap.step_out, desc = 'Debug: Step Out' },

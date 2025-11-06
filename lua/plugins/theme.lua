@@ -1,4 +1,4 @@
-local color = 'poimandres'
+local color = 'gruber-darker'
 function ColorMyPencils(colorFunc)
   if colorFunc then
     colorFunc = tostring(colorFunc)
@@ -23,6 +23,15 @@ function ColorMyPencils(colorFunc)
 end
 
 return {
+  {
+    'blazkowolf/gruber-darker.nvim',
+    opts = {
+      bold = false,
+      italic = {
+        strings = false,
+      },
+    },
+  },
   {
     'olivercederborg/poimandres.nvim',
     priority = 1000,
