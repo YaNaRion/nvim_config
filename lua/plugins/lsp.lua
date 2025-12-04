@@ -214,18 +214,18 @@ return {
         jsonlint = {},
         ols = {},
         hyprls = {},
+
         -- ltex_plus = {
-        --   cmd = { 'ltex-ls-plus' },
-        --   filetypes = { 'markdown', 'tex', 'latex', 'text' },
+        --   on_attach = function(client, bufnr)
+        --     require('ltex-utils').on_attach(bufnr)
+        --   end,
         --   settings = {
         --     ltex = {
-        --       language = 'fr',
+        --       language = 'auto',
+        --       diagnosticSeverity = 'information',
         --       additionalRules = {
         --         enablePickyRules = true,
         --         motherTongue = 'fr',
-        --       },
-        --       dictionary = {
-        --         ['fr'] = { 'Neovim', 'Lua', 'ltex-ls-plus' },
         --       },
         --     },
         --   },
@@ -303,6 +303,7 @@ return {
           -- 'astro',
           -- "gdscript",
           -- 'pylsp',
+          -- 'ltex-ls-plus',
           'clangd',
           'ols',
           -- 'prismals',
@@ -310,8 +311,7 @@ return {
           'jsonls',
           'eslint',
           'htmx-lsp',
-          -- "hls",
-          -- "zls",
+          -- "hls", "zls",
           -- 'marksman',
           -- 'sqlls',
           -- 'wgsl_analyzer',
