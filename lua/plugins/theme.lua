@@ -1,4 +1,6 @@
+-- local color = 'rose-pine'
 local color = 'gruber-darker'
+-- local color = 'zenbones'
 function ColorMyPencils(colorFunc)
   if colorFunc then
     colorFunc = tostring(colorFunc)
