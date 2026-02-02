@@ -5,6 +5,7 @@ vim.g.maplocalleader = ' '
 
 vim.opt.termguicolors = true
 -- vim.cmd 'colorscheme base16-default-dark'
+vim.opt.wildignore:append { '**/.git/**', '**/node_modules/**', '**/build/**', '*.o', '*.pyc', '*.swp' }
 
 vim.g.have_nerd_font = truek
 vim.g.shiftwidth = 4

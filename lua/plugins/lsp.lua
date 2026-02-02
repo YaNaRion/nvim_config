@@ -109,6 +109,15 @@ return {
           --  For example, in C this would take you to the header.
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
+          -- -- Open the diagnostic floating window (popup) under the cursor
+          -- vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Open diagnostics float' })
+          --
+          -- -- Example: use <leader>e to jump to the next error and open the float
+          -- vim.keymap.set('n', '<leader>e', function()
+          --   vim.diagnostic.goto_next { severity = vim.diagnostic.severity.ERROR }
+          --   vim.diagnostic.open_float()
+          -- end, { desc = 'Go to next error and open float' })
+
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
           --    See `:help CursorHold` for information about when this is executed
@@ -159,7 +168,28 @@ return {
         end
       end
 
-      vim.diagnostic.config { virtual_text = true }
+      -- Open diagnostic popup on hover
+      vim.api.nvim_create_autocmd('CursorHold', {
+        callback = function()
+          local opts = {
+            focusable = false,
+            close_events = { 'BufLeave', 'CursorMoved', 'InsertEnter', 'FocusLost' },
+            border = 'rounded',
+            source = 'always',
+            prefix = ' ',
+          }
+          vim.diagnostic.open_float(nil, opts)
+        end,
+      })
+
+      vim.diagnostic.config {
+        virtual_text = false, -- Disable inline errors
+        float = {
+          source = 'always', -- Show source of diagnostic in float
+          border = 'rounded',
+          focusable = false,
+        },
+      }
       -- LSP servers and clients are able to communicate to each other what features they support.
       --  By default, Neovim doesn't support everything that is in the LSP specification.
       --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
@@ -194,19 +224,76 @@ return {
           end,
           settings = {
             ['rust-analyzer'] = {
+              -- Import organization
+              cmd = { 'rustup', 'run', 'stable', 'rust-analyzer' },
               imports = {
                 granularity = {
                   group = 'module',
                 },
                 prefix = 'self',
               },
+
+              -- Cargo integration
               cargo = {
+                allFeatures = true,
                 buildScripts = {
                   enable = true,
                 },
+                loadOutDirsFromCheck = true,
+                runBuildScriptCommand = 'cargo check --workspace',
               },
+
+              -- Proc macros
               procMacro = {
                 enable = true,
+              },
+
+              -- Completion
+              completion = {
+                postfix = {
+                  enable = false, -- Disable postfix completion like .if, .match, etc.
+                },
+              },
+
+              -- Diagnostics
+              diagnostics = {
+                enable = true,
+                disabled = { 'unresolved-proc-macro' },
+                enableExperimental = true,
+              },
+
+              -- Inlay hints (more specific configuration)
+              inlayHints = {
+                bindingModeHints = {
+                  enable = true,
+                },
+                chainingHints = {
+                  enable = true,
+                },
+                closingBraceHints = {
+                  enable = true,
+                  minLines = 25,
+                },
+                lifetimeElisionHints = {
+                  enable = 'skip_trivial',
+                },
+                typeHints = {
+                  enable = true,
+                },
+              },
+
+              -- Lenses
+              lens = {
+                enable = true,
+                run = true, -- Show run lens
+                debug = true, -- Show debug lens
+                implementations = true, -- Show implementations lens
+              },
+
+              -- Check command (can be "check", "clippy", or "test")
+              checkOnSave = {
+                command = 'clippy', -- Use clippy instead of check
+                allFeatures = true,
               },
             },
           },
