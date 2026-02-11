@@ -1,5 +1,5 @@
--- local color = 'rose-pine'
-local color = 'gruber-darker'
+local color = 'vague'
+-- local color = 'gruber-darker'
 -- local color = 'zenbones'
 function ColorMyPencils(colorFunc)
   if colorFunc then
@@ -9,19 +9,19 @@ function ColorMyPencils(colorFunc)
     vim.cmd.colorscheme(color)
   end
 
-  vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-  vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
-  vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
-  vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
-  vim.api.nvim_set_hl(0, 'SignColumn', { bg = 'none' })
-  vim.api.nvim_set_hl(0, 'VertSplit', { bg = 'none' })
-  vim.api.nvim_set_hl(0, 'StatusLine', { bg = 'none' })
-  vim.api.nvim_set_hl(0, 'TabLineFill', { bg = 'none' })
-  vim.api.nvim_set_hl(0, 'EndOfBuffer', { bg = 'none', fg = 'none' })
-  vim.api.nvim_set_hl(0, 'LineNr', { bg = 'none' })
-  vim.api.nvim_set_hl(0, 'CursorLineNr', { bg = 'none' })
-  vim.api.nvim_set_hl(0, 'LineNrAbove', { bg = 'none' })
-  vim.api.nvim_set_hl(0, 'LineNrBelow', { bg = 'none' })
+  -- vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+  -- vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
+  -- vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+  -- vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
+  -- vim.api.nvim_set_hl(0, 'SignColumn', { bg = 'none' })
+  -- vim.api.nvim_set_hl(0, 'VertSplit', { bg = 'none' })
+  -- vim.api.nvim_set_hl(0, 'StatusLine', { bg = 'none' })
+  -- vim.api.nvim_set_hl(0, 'TabLineFill', { bg = 'none' })
+  -- vim.api.nvim_set_hl(0, 'EndOfBuffer', { bg = 'none', fg = 'none' })
+  -- vim.api.nvim_set_hl(0, 'LineNr', { bg = 'none' })
+  -- vim.api.nvim_set_hl(0, 'CursorLineNr', { bg = 'none' })
+  -- vim.api.nvim_set_hl(0, 'LineNrAbove', { bg = 'none' })
+  -- vim.api.nvim_set_hl(0, 'LineNrBelow', { bg = 'none' })
 end
 
 return {
@@ -99,7 +99,7 @@ return {
     'vague2k/vague.nvim',
     config = function()
       require('vague').setup {
-        transparent = true, -- don't set background
+        transparent = false, -- don't set background
         style = {
           -- "none" is the same thing as default. But "italic" and "bold" are also valid options
           boolean = 'bold',
