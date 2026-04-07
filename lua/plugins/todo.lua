@@ -1,41 +1,20 @@
-return {
-  { -- Collection of various small independent plugins/modules
-    'echasnovski/mini.nvim',
-    config = function()
-      -- Better Around/Inside textobjects
-      --
-      -- Examples:
-      --  - va)  - [V]isually select [A]round [)]paren
-      --  - yinq - [y]ank [i]nside [n]ext [q]uote
-      --  - ci'  - [c]hange [i]nside [']quote
-      require('mini.ai').setup { n_lines = 500 }
-
-      -- Add/delete/replace surroundings (brackets, quotes, etc.)
-      --
-      -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
-      -- - sd'   - [S]urround [D]elete [']quotes
-      -- - sr)'  - [S]urround [R]eplace [)] [']
-      -- require('mini.surround').setup()
-
-      -- require('mini.git').setup()
-
-      -- Simple and easy statusline.
-      --  You could remove this setup call if you don't like it,
-      --  and try some other statusline plugin
-      -- local statusline = require 'mini.statusline'
-      -- -- set use_icons to true if you have a Nerd Font
-      -- statusline.setup { use_icons = vim.g.have_nerd_font }
-
-      -- You can configure sections in the statusline by overriding their
-      -- default behavior. For example, here we set the section for
-      -- cursor location to LINE:COLUMN
-      -- ---@diagnostic disable-next-line: duplicate-set-field
-      -- statusline.section_location = function()
-      --   return '%2l:%-2v'
-      -- end
-
-      -- ... and there is more!
-      --  Check out: https://github.com/echasnovski/mini.nvim
-    end,
-  },
+-- 1. Add to your package list
+vim.pack.add {
+  { src = 'https://github.com/echasnovski/mini.nvim' },
 }
+
+-- 2. Explicitly load the package
+vim.cmd('packadd mini.nvim')
+
+-- 3. Configure Mini modules
+-- We use a local function or direct call to initialize the features you want
+local mini_ai = require('mini.ai')
+mini_ai.setup({ n_lines = 500 })
+
+-- Uncomment the lines below to enable other modules:
+-- require('mini.surround').setup()
+-- require('mini.git').setup()
+
+-- Example: Statusline configuration
+-- local statusline = require('mini.statusline')
+-- statusline.setup({ use_icons = vim.g.have_nerd_font or true })

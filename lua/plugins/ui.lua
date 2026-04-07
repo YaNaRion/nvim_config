@@ -1,106 +1,74 @@
--- You can add your own plugins here or in other files in this directory!
---  I promise not to create any merge conflicts in this directory :)
---
--- See the kickstart.nvim README for more information
-function ShellType()
-  local os_name = vim.loop.os_uname().sysname
+-- 1. Package Declarations
+vim.pack.add {
+  { src = 'https://github.com/NvChad/nvterm' },
+  { src = 'https://github.com/numToStr/Comment.nvim' },
+  { src = 'https://github.com/ThePrimeagen/vim-be-good' },
+}
 
-  if os_name == 'Linux' then
-    return vim.o.shell
-  elseif os_name == 'Darwin' then -- macOS
-    return vim.o.shell
-  elseif os_name == 'Windows_NT' then -- Windows
+-- 2. Helper Function for Shell
+local function shell_type()
+  local os_name = vim.loop.os_uname().sysname
+  if os_name == 'Windows_NT' then
     return 'powershell'
   else
-    print('Running on an unknown OS: ' .. os_name)
+    return vim.o.shell
   end
 end
 
-return {
-  {
-    'NvChad/nvterm',
-    config = function()
-      require('nvterm').setup {
-        terminals = {
-          shell = ShellType(),
-          list = {},
-          type_opts = {
-            float = {
-              relative = 'editor',
-              row = 0.3,
-              col = 0.25,
-              width = 0.5,
-              height = 0.4,
-              border = 'single',
-            },
-            horizontal = { location = 'rightbelow', split_ratio = 0.3 },
+-- 3. Load Packages
+vim.cmd('packadd nvterm')
+vim.cmd('packadd Comment.nvim')
+vim.cmd('packadd vim-be-good')
 
-            vertical = { location = 'rightbelow', split_ratio = 0.5 },
-          },
-        },
-        behavior = {
-          autoclose_on_quit = {
-            enabled = false,
-            confirm = true,
-          },
-          close_on_exit = true,
-          auto_insert = true,
-        },
-      }
-      local terminal = require 'nvterm.terminal'
-
-      local ft_cmds = {
-        python = 'python3 ' .. vim.fn.expand '%',
-      }
-      local toggle_modes = { 'n', 't' }
-      local mappings = {
-        {
-          'n',
-          '<C-l>',
-          function()
-            terminal.send(ft_cmds[vim.bo.filetype])
-          end,
-        },
-        {
-          toggle_modes,
-          '<A-h>',
-          function()
-            terminal.toggle 'horizontal'
-          end,
-        },
-        {
-          toggle_modes,
-          '<A-v>',
-          function()
-            terminal.toggle 'vertical'
-          end,
-        },
-        {
-          toggle_modes,
-          '<A-i>',
-          function()
-            terminal.toggle 'float'
-          end,
-        },
-      }
-      local opts = { noremap = true, silent = true }
-      for _, mapping in ipairs(mappings) do
-        vim.keymap.set(mapping[1], mapping[2], mapping[3], opts)
-      end
-    end,
+-- 4. NvTerm Configuration
+local nvterm = require('nvterm')
+nvterm.setup({
+  terminals = {
+    shell = shell_type(),
+    type_opts = {
+      float = {
+        relative = 'editor',
+        row = 0.3, col = 0.25, width = 0.5, height = 0.4,
+        border = 'single',
+      },
+      horizontal = { location = 'rightbelow', split_ratio = 0.3 },
+      vertical = { location = 'rightbelow', split_ratio = 0.5 },
+    },
   },
-
-  {
-    'numToStr/Comment.nvim',
-    config = function()
-      vim.keymap.set('n', '<C-/>', function()
-        require('Comment.api').toggle.linewise.current()
-      end)
-
-      vim.keymap.set('v', '<C-/>', "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>")
-    end,
+  behavior = {
+    autoclose_on_quit = { enabled = false, confirm = true },
+    close_on_exit = true,
+    auto_insert = true,
   },
-  {
-    'ThePrimeagen/vim-be-good',
-  },
-}
+})
+
+-- NvTerm Mappings
+local terminal = require('nvterm.terminal')
+local toggle_modes = { 'n', 't' }
+local opts = { noremap = true, silent = true }
+
+vim.keymap.set('n', '<C-l>', function() 
+  local ft_cmds = { python = 'python3 ' .. vim.fn.expand('%') }
+  terminal.send(ft_cmds[vim.bo.filetype])
+end, opts)
+
+vim.keymap.set(toggle_modes, '<A-h>', function() terminal.toggle('horizontal') end, opts)
+vim.keymap.set(toggle_modes, '<A-v>', function() terminal.toggle('vertical') end, opts)
+vim.keymap.set(toggle_modes, '<A-i>', function() terminal.toggle('float') end, opts)
+
+-- 5. Comment.nvim Configuration
+require('Comment').setup({}) -- Basic setup is required for the API to work
+local comment_api = require('Comment.api')
+
+-- Normal mode toggle
+vim.keymap.set('n', '<C-/>', function()
+  comment_api.toggle.linewise.current()
+end, { desc = 'Toggle comment' })
+
+-- Visual mode toggle
+vim.keymap.set('v', '<C-/>', function()
+  -- Using the Lua API directly is cleaner than the <ESC><CMD> string
+  local esc = vim.api.nvim_replace_termcodes('<ESC>', true, false, true)
+  vim.api.nvim_feedkeys(esc, 'nx', false)
+  comment_api.toggle.linewise(vim.fn.visualmode())
+end, { desc = 'Toggle comment visual' })
