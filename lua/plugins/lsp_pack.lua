@@ -120,8 +120,6 @@ require('conform').setup {
   },
 }
 
--- 8. Completion (nvim-cmp)
--- 8. Completion (nvim-cmp)
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
 

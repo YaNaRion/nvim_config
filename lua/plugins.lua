@@ -9,6 +9,7 @@ require 'plugins.harpoon'
 require 'plugins.todo'
 require 'plugins.ui'
 require 'plugins.which-key'
+require 'plugins.pgsql'
 
 require 'kickstart.plugins.debug'
 require 'kickstart.plugins.lint'
