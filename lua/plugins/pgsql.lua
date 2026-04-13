@@ -19,5 +19,6 @@ require('dbee').setup {
       -- CRITICAL: Prevent auto-expansion that triggers ListDatabases
       expanded = false,
     },
+    {},
   },
 }
