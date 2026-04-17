@@ -3,7 +3,7 @@ vim.pack.add {
   { src = 'https://github.com/MunifTanjim/nui.nvim' },
 }
 
-require('dbee').install()
+-- require('dbee').install()
 vim.keymap.set('n', '<leader>mm', function()
   local dbee = require 'dbee'
   -- Execute a simple command to connect without listing dbs
