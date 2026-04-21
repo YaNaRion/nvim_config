@@ -88,5 +88,15 @@ function ColorMyPencils(colorFunc)
   --  vim.api.nvim_set_hl(0, 'LineNrAbove', { bg = 'none' })
   --  vim.api.nvim_set_hl(0, 'LineNrBelow', { bg = 'none' })
 end
+-- Add this to your init.lua
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'go',
+  callback = function()
+    -- Disable legacy regex syntax
+    -- vim.cmd("syntax off")
+    -- Ensure treesitter is active for the buffer
+    vim.treesitter.start()
+  end,
+})
 
 ColorMyPencils()
