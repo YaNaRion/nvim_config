@@ -4,11 +4,19 @@ vim.pack.add {
 }
 
 -- require('dbee').install()
+<<<<<<< HEAD
 -- vim.keymap.set('n', '<leader>mm', function()
 --   local dbee = require 'dbee'
 --   -- Execute a simple command to connect without listing dbs
 --   vim.cmd "DBeeExecute 'show collections'"
 -- end)
+=======
+vim.keymap.set('n', '<leader>mm', function()
+  local dbee = require 'dbee'
+  -- Execute a simple command to connect without listing dbs
+  vim.cmd "DBeeExecute 'show collections'"
+end)
+>>>>>>> 80548f90136103d0cac7110f8af2686ba9a02863
 
 require('dbee').setup {
   connections = {
