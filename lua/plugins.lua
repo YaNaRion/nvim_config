@@ -10,6 +10,7 @@ require 'plugins.todo'
 require 'plugins.ui'
 require 'plugins.which-key'
 require 'plugins.pgsql'
+require 'plugins.99'
 
 require 'kickstart.plugins.debug'
 require 'kickstart.plugins.lint'
