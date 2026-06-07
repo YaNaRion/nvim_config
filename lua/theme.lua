@@ -63,8 +63,8 @@ require('vague').setup {
   },
 }
 
-local color = 'vague'
--- local color = 'gruber-darker'
+-- local color = 'vague'
+local color = 'gruber-darker'
 -- local color = 'zenbones'
 function ColorMyPencils(colorFunc)
   if colorFunc then
