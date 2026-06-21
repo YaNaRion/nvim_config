@@ -16,19 +16,22 @@ local function shell_type()
 end
 
 -- 3. Load Packages
-vim.cmd('packadd nvterm')
-vim.cmd('packadd Comment.nvim')
-vim.cmd('packadd vim-be-good')
+vim.cmd 'packadd nvterm'
+vim.cmd 'packadd Comment.nvim'
+vim.cmd 'packadd vim-be-good'
 
 -- 4. NvTerm Configuration
-local nvterm = require('nvterm')
-nvterm.setup({
+local nvterm = require 'nvterm'
+nvterm.setup {
   terminals = {
     shell = shell_type(),
     type_opts = {
       float = {
         relative = 'editor',
-        row = 0.3, col = 0.25, width = 0.5, height = 0.4,
+        row = 0.3,
+        col = 0.25,
+        width = 0.5,
+        height = 0.4,
         border = 'single',
       },
       horizontal = { location = 'rightbelow', split_ratio = 0.3 },
@@ -40,25 +43,31 @@ nvterm.setup({
     close_on_exit = true,
     auto_insert = true,
   },
-})
+}
 
 -- NvTerm Mappings
-local terminal = require('nvterm.terminal')
+local terminal = require 'nvterm.terminal'
 local toggle_modes = { 'n', 't' }
 local opts = { noremap = true, silent = true }
 
-vim.keymap.set('n', '<C-l>', function() 
-  local ft_cmds = { python = 'python3 ' .. vim.fn.expand('%') }
+vim.keymap.set('n', '<C-l>', function()
+  local ft_cmds = { python = 'python3 ' .. vim.fn.expand '%' }
   terminal.send(ft_cmds[vim.bo.filetype])
 end, opts)
 
-vim.keymap.set(toggle_modes, '<A-h>', function() terminal.toggle('horizontal') end, opts)
-vim.keymap.set(toggle_modes, '<A-v>', function() terminal.toggle('vertical') end, opts)
-vim.keymap.set(toggle_modes, '<A-i>', function() terminal.toggle('float') end, opts)
+vim.keymap.set(toggle_modes, '<A-h>', function()
+  terminal.toggle 'horizontal'
+end, opts)
+vim.keymap.set(toggle_modes, '<A-v>', function()
+  terminal.toggle 'vertical'
+end, opts)
+vim.keymap.set(toggle_modes, '<A-i>', function()
+  terminal.toggle 'float'
+end, opts)
 
 -- 5. Comment.nvim Configuration
-require('Comment').setup({}) -- Basic setup is required for the API to work
-local comment_api = require('Comment.api')
+require('Comment').setup {} -- Basic setup is required for the API to work
+local comment_api = require 'Comment.api'
 
 -- Normal mode toggle
 vim.keymap.set('n', '<C-/>', function()

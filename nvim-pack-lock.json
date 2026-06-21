@@ -16,6 +16,10 @@
       "rev": "93f3bed009f7fc4c57f8d710880b6cab9e0b0d15",
       "src": "https://github.com/Mofiqul/adwaita.nvim"
     },
+    "aquarium-vim": {
+      "rev": "6da0091836f36f82af558f0395ea50fd5a297d6d",
+      "src": "https://github.com/frenzyexists/aquarium-vim"
+    },
     "arctic.nvim": {
       "rev": "46da33aeb3a8ee48533f41911b3aaf4f1541dd6f",
       "src": "https://github.com/rockyzhang24/arctic.nvim"
@@ -23,6 +27,10 @@
     "baleia.nvim": {
       "rev": "32617940adb2eea56e85a64883a19961ceac9641",
       "src": "https://github.com/m00qek/baleia.nvim"
+    },
+    "blink.cmp": {
+      "rev": "bda905a4bf1b3edfa708b0be193b8c63d8620c96",
+      "src": "https://github.com/saghen/blink.cmp"
     },
     "cmp-nvim-lsp": {
       "rev": "cbc7b02bb99fae35cb42f514762b89b5126651ef",
@@ -164,6 +172,10 @@
     "telescope.nvim": {
       "rev": "7ef4d6dccb78ee71e552bbd866176762ad328afa",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
+    },
+    "tokyonight.nvim": {
+      "rev": "cdc07ac78467a233fd62c493de29a17e0cf2b2b6",
+      "src": "https://github.com/folke/tokyonight.nvim"
     },
     "vague.nvim": {
       "rev": "43b3a07e9ebb30750ede323886f15e60e2c638ce",

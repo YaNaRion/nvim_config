@@ -6,9 +6,9 @@ vim.pack.add {
   { src = 'https://github.com/nvim-tree/nvim-web-devicons' },
 }
 
-local telescope = require('telescope')
-local builtin = require('telescope.builtin')
-local themes = require('telescope.themes')
+local telescope = require 'telescope'
+local builtin = require 'telescope.builtin'
+local themes = require 'telescope.themes'
 
 telescope.setup {
   extensions = {
@@ -57,7 +57,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('telescope-lsp-attach', { clear = true }),
   callback = function(event)
     local opts = { buffer = event.buf }
-    
+
     map('n', 'grr', builtin.lsp_references, { buffer = event.buf, desc = 'LSP: [G]oto [R]eferences' })
     map('n', 'gri', builtin.lsp_implementations, { buffer = event.buf, desc = 'LSP: [G]oto [I]mplementation' })
     map('n', 'grd', builtin.lsp_definitions, { buffer = event.buf, desc = 'LSP: [G]oto [D]efinition' })
