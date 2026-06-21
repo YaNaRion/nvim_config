@@ -11,7 +11,7 @@ local cwd = vim.uv.cwd()
 local basename = vim.fs.basename(cwd) or 'default'
 _99.setup {
   provider = _99.Providers.OpenCodeProvider,
-  model = 'opencode/big-pickle',
+  model = 'qwen3-coder:30b',
 
   logger = {
     level = _99.DEBUG,

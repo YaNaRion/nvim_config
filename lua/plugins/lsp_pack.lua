@@ -2,17 +2,14 @@
 vim.pack.add {
   { src = 'https://github.com/folke/lazydev.nvim' },
   { src = 'https://github.com/Bilal2453/luvit-meta' },
-  { src = 'https://github.com/hrsh7th/nvim-cmp' },
+  { src = 'https://github.com/saghen/blink.cmp', tag = 'v1.10.2' },
   { src = 'https://github.com/neovim/nvim-lspconfig' },
   { src = 'https://github.com/williamboman/mason.nvim' },
   { src = 'https://github.com/williamboman/mason-lspconfig.nvim' },
   { src = 'https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim' },
   { src = 'https://github.com/j-hui/fidget.nvim' },
-  { src = 'https://github.com/hrsh7th/cmp-nvim-lsp' },
   { src = 'https://github.com/stevearc/conform.nvim' },
   { src = 'https://github.com/L3MON4D3/LuaSnip' },
-  { src = 'https://github.com/saadparwaiz1/cmp_luasnip' },
-  { src = 'https://github.com/hrsh7th/cmp-path' },
   { src = 'https://github.com/nvim-telescope/telescope.nvim' },
 }
 
@@ -61,8 +58,7 @@ vim.list_extend(ensure_installed, { 'stylua', 'jsonlint' })
 require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
 -- 4. LSP & Capabilities
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+local capabilities = require('blink.cmp').get_lsp_capabilities()
 
 require('lazydev').setup {
   library = { { path = 'luvit-meta/library', words = { 'vim%.uv' } } },
@@ -84,6 +80,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
     map('<leader>ds', builtin.lsp_document_symbols, '[D]ocument [S]ymbols')
     map('<leader>ra', vim.lsp.buf.rename, '[R]e[n]ame')
     map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+
+    -- Hover documentation with blink.cmp-style float
+    map('K', function()
+      vim.lsp.buf.hover {
+        border = 'rounded',
+        winhighlight = 'Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder',
+      }
+    end, 'Hover documentation')
 
     -- Toggle Inlay Hints
     local client = vim.lsp.get_client_by_id(event.data.client_id)
@@ -120,60 +124,64 @@ require('conform').setup {
   },
 }
 
-local cmp = require 'cmp'
-local luasnip = require 'luasnip'
-
-cmp.setup {
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
+require('blink.cmp').setup {
+  keymap = {
+    ['<Tab>'] = { 'select_next', 'snippet_forward', 'fallback' },
+    ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
+    ['<CR>'] = { 'select_and_accept', 'fallback' },
+    ['<C-l>'] = { 'snippet_forward' },
+    ['<C-h>'] = { 'snippet_backward' },
+    ['<C-Space>'] = { 'show', 'hide' },
   },
-
-  -- menuone: shows menu even if there is only one suggestion
-  -- noinsert: prevents the menu from automatically inserting text until you select it
-  completion = { completeopt = 'menu,menuone,noinsert' },
-
-  mapping = cmp.mapping.preset.insert {
-    ['<C-n>'] = cmp.mapping.select_next_item(),
-    ['<C-p>'] = cmp.mapping.select_prev_item(),
-    ['<C-y>'] = cmp.mapping.confirm { select = true },
-    ['<C-Space>'] = cmp.mapping.complete {},
-
-    -- Confirm with Enter:
-    -- If the menu is visible, confirm the selection.
-    -- If not, behave like a normal Enter key (new line).
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
+  appearance = {
+    use_nvim_cmp_as_default = true,
+    nerd_font_variant = 'mono',
+    kind_icons = {
+      Text = '󰉿',
+      Method = '󰆧',
+      Function = '󰊕',
+      Constructor = '',
+      Field = '󰜢',
+      Variable = '󰀫',
+      Class = '󰠱',
+      Interface = '',
+      Module = '',
+      Property = '󰜢',
+      Unit = '󰑭',
+      Value = '󰎠',
+      Enum = '',
+      Keyword = '󰌋',
+      Snippet = '',
+      Color = '󰏘',
+      File = '󰈙',
+      Reference = '󰈇',
+      Folder = '󰉋',
+      EnumMember = '',
+      Constant = '󰏿',
+      Struct = '󰙅',
+      Event = '',
+      Operator = '󰆕',
+      TypeParameter = '󰊄',
     },
-
-    -- Tab navigation (Next item or jump forward in snippet)
-    ['<Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_locally_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-
-    -- Shift-Tab navigation (Previous item or jump backward in snippet)
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.locally_jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
   },
   sources = {
-    { name = 'lazydev', group_index = 0 },
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
-    { name = 'path' },
+    default = { 'lsp', 'path', 'snippets', 'buffer' },
   },
+  completion = {
+    menu = {
+      border = 'rounded',
+      winhighlight = 'Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None',
+      scrollbar = true,
+    },
+    documentation = {
+      auto_show = true,
+      auto_show_delay_ms = 500,
+      window = {
+        border = 'rounded',
+        winhighlight = 'Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder',
+      },
+    },
+    ghost_text = { enabled = true },
+  },
+  snippets = { preset = 'luasnip' },
 }
