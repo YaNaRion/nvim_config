@@ -2,6 +2,7 @@
 vim.pack.add {
   { src = 'https://github.com/folke/lazydev.nvim' },
   { src = 'https://github.com/Bilal2453/luvit-meta' },
+  { src = 'https://github.com/saghen/blink.lib'},
   { src = 'https://github.com/saghen/blink.cmp', tag = 'v1.10.2' },
   { src = 'https://github.com/neovim/nvim-lspconfig' },
   { src = 'https://github.com/williamboman/mason.nvim' },
