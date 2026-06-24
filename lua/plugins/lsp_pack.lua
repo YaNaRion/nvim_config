@@ -185,3 +185,56 @@ require('blink.cmp').setup {
   },
   snippets = { preset = 'luasnip' },
 }
+
+-- nvim-lspconfig skips defining :LspStart etc when :lsp exists, but Neovim 0.12
+-- only has :lsp, not :LspStart. Define them here for the old lspconfig API.
+do
+  local lsp_util = require('lspconfig.util')
+  local configs = require('lspconfig.configs')
+
+  vim.api.nvim_create_user_command('LspStart', function(info)
+    local server_name = info.args
+    if server_name and server_name ~= '' then
+      local config = configs[server_name]
+      if config then config.launch() end
+      return
+    end
+    for _, config in ipairs(lsp_util.get_config_by_ft(vim.bo.filetype)) do
+      config.launch()
+    end
+  end, { desc = 'Manually launches a language server', nargs = '?', complete = function(arg)
+    return vim.tbl_filter(function(s) return s:sub(1, #arg) == arg end, lsp_util.available_servers())
+  end })
+
+  vim.api.nvim_create_user_command('LspStop', function(info)
+    local clients
+    if info.args and info.args ~= '' then
+      clients = vim.tbl_filter(function(c) return c.name == info.args end, vim.lsp.get_clients())
+    else
+      clients = vim.lsp.get_clients({ bufnr = 0 })
+    end
+    for _, client in ipairs(clients) do client.stop() end
+  end, { desc = 'Stops the given language server(s)', nargs = '?', complete = function(arg)
+    return vim.tbl_filter(function(s) return s:sub(1, #arg) == arg end,
+      vim.tbl_map(function(c) return c.name end, vim.lsp.get_clients()))
+  end })
+
+  vim.api.nvim_create_user_command('LspRestart', function(info)
+    local clients
+    if info.args and info.args ~= '' then
+      clients = vim.tbl_filter(function(c) return c.name == info.args end, vim.lsp.get_clients())
+    else
+      clients = vim.lsp.get_clients({ bufnr = 0 })
+    end
+    for _, client in ipairs(clients) do
+      local name = client.name
+      client.stop()
+      vim.defer_fn(function()
+        if configs[name] then configs[name].launch() end
+      end, 500)
+    end
+  end, { desc = 'Restarts the given language server(s)', nargs = '?', complete = function(arg)
+    return vim.tbl_filter(function(s) return s:sub(1, #arg) == arg end,
+      vim.tbl_map(function(c) return c.name end, vim.lsp.get_clients()))
+  end })
+end
