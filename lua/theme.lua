@@ -70,7 +70,8 @@ require('vague').setup {
 -- local color = 'gruber-darker'
 -- local color = 'zenbones'
 -- local color = 'aquarium'
-local color = 'tokyonight-night'
+-- local color = 'tokyonight-night'
+local color = 'adwaita'
 function ColorMyPencils(colorFunc)
   if colorFunc then
     colorFunc = tostring(colorFunc)

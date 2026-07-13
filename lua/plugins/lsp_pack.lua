@@ -2,7 +2,7 @@
 vim.pack.add {
   { src = 'https://github.com/folke/lazydev.nvim' },
   { src = 'https://github.com/Bilal2453/luvit-meta' },
-  { src = 'https://github.com/saghen/blink.lib'},
+  { src = 'https://github.com/saghen/blink.lib' },
   { src = 'https://github.com/saghen/blink.cmp', tag = 'v1.10.2' },
   { src = 'https://github.com/neovim/nvim-lspconfig' },
   { src = 'https://github.com/williamboman/mason.nvim' },
@@ -14,7 +14,19 @@ vim.pack.add {
   { src = 'https://github.com/nvim-telescope/telescope.nvim' },
 }
 
--- 2. Basic Setup & UI
+-- 2. Load packages from vim.pack.add queue
+vim.cmd 'packadd fidget.nvim'
+vim.cmd 'packadd mason.nvim'
+vim.cmd 'packadd mason-lspconfig.nvim'
+vim.cmd 'packadd mason-tool-installer.nvim'
+vim.cmd 'packadd conform.nvim'
+vim.cmd 'packadd LuaSnip'
+vim.cmd 'packadd blink.lib'
+vim.cmd 'packadd blink.cmp'
+vim.cmd 'packadd lazydev.nvim'
+vim.cmd 'packadd luvit-meta'
+
+-- 3. Basic Setup & UI
 require('fidget').setup {}
 require('mason').setup()
 
@@ -35,7 +47,7 @@ vim.api.nvim_create_autocmd('CursorHold', {
   end,
 })
 
--- 3. Mason Tool Installer (Missing in your draft)
+-- 4. Mason Tool Installer (Missing in your draft)
 -- This ensures non-LSP tools like stylua or clippy are present
 local servers = {
   clangd = { cmd = { 'clangd', '--background-index', '--clang-tidy', '--header-insertion=never' } },
@@ -51,21 +63,23 @@ local servers = {
   lua_ls = { settings = { Lua = { completion = { callSnippet = 'Replace' } } } },
   pyright = {},
   gopls = {},
+  ts_ls = {},
+  eslint = {},
 }
 
 local ensure_installed = vim.tbl_keys(servers)
-vim.list_extend(ensure_installed, { 'stylua', 'jsonlint' })
+vim.list_extend(ensure_installed, { 'stylua', 'jsonlint', 'eslint-lsp', 'prettierd', 'typescript-language-server' })
 
 require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
--- 4. LSP & Capabilities
+-- 5. LSP & Capabilities
 local capabilities = require('blink.cmp').get_lsp_capabilities()
 
 require('lazydev').setup {
   library = { { path = 'luvit-meta/library', words = { 'vim%.uv' } } },
 }
 
--- 5. LSP Attach (Keymaps)
+-- 6. LSP Attach (Keymaps)
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
   callback = function(event)
@@ -101,7 +115,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
--- 6. Mason-LSPConfig Handlers
+-- 7. Mason-LSPConfig Handlers
 require('mason-lspconfig').setup {
   handlers = {
     function(server_name)
@@ -112,7 +126,7 @@ require('mason-lspconfig').setup {
   },
 }
 
--- 7. Conform (Autoformatting)
+-- 8. Conform (Autoformatting)
 require('conform').setup {
   format_on_save = {
     timeout_ms = 500,
@@ -122,6 +136,12 @@ require('conform').setup {
     lua = { 'stylua' },
     rust = { 'rustfmt' },
     javascript = { 'prettierd', 'prettier', stop_after_first = true },
+    typescript = { 'prettierd', 'prettier', stop_after_first = true },
+    javascriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+    typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+    json = { 'prettierd', 'prettier', stop_after_first = true },
+    html = { 'prettierd', 'prettier', stop_after_first = true },
+    css = { 'prettierd', 'prettier', stop_after_first = true },
   },
 }
 
@@ -190,52 +210,88 @@ require('blink.cmp').setup {
 -- nvim-lspconfig skips defining :LspStart etc when :lsp exists, but Neovim 0.12
 -- only has :lsp, not :LspStart. Define them here for the old lspconfig API.
 do
-  local lsp_util = require('lspconfig.util')
-  local configs = require('lspconfig.configs')
+  local lsp_util = require 'lspconfig.util'
+  local configs = require 'lspconfig.configs'
 
   vim.api.nvim_create_user_command('LspStart', function(info)
     local server_name = info.args
     if server_name and server_name ~= '' then
       local config = configs[server_name]
-      if config then config.launch() end
+      if config then
+        config.launch()
+      end
       return
     end
     for _, config in ipairs(lsp_util.get_config_by_ft(vim.bo.filetype)) do
       config.launch()
     end
-  end, { desc = 'Manually launches a language server', nargs = '?', complete = function(arg)
-    return vim.tbl_filter(function(s) return s:sub(1, #arg) == arg end, lsp_util.available_servers())
-  end })
+  end, {
+    desc = 'Manually launches a language server',
+    nargs = '?',
+    complete = function(arg)
+      return vim.tbl_filter(function(s)
+        return s:sub(1, #arg) == arg
+      end, lsp_util.available_servers())
+    end,
+  })
 
   vim.api.nvim_create_user_command('LspStop', function(info)
     local clients
     if info.args and info.args ~= '' then
-      clients = vim.tbl_filter(function(c) return c.name == info.args end, vim.lsp.get_clients())
+      clients = vim.tbl_filter(function(c)
+        return c.name == info.args
+      end, vim.lsp.get_clients())
     else
-      clients = vim.lsp.get_clients({ bufnr = 0 })
+      clients = vim.lsp.get_clients { bufnr = 0 }
     end
-    for _, client in ipairs(clients) do client.stop() end
-  end, { desc = 'Stops the given language server(s)', nargs = '?', complete = function(arg)
-    return vim.tbl_filter(function(s) return s:sub(1, #arg) == arg end,
-      vim.tbl_map(function(c) return c.name end, vim.lsp.get_clients()))
-  end })
+    for _, client in ipairs(clients) do
+      client.stop()
+    end
+  end, {
+    desc = 'Stops the given language server(s)',
+    nargs = '?',
+    complete = function(arg)
+      return vim.tbl_filter(
+        function(s)
+          return s:sub(1, #arg) == arg
+        end,
+        vim.tbl_map(function(c)
+          return c.name
+        end, vim.lsp.get_clients())
+      )
+    end,
+  })
 
   vim.api.nvim_create_user_command('LspRestart', function(info)
     local clients
     if info.args and info.args ~= '' then
-      clients = vim.tbl_filter(function(c) return c.name == info.args end, vim.lsp.get_clients())
+      clients = vim.tbl_filter(function(c)
+        return c.name == info.args
+      end, vim.lsp.get_clients())
     else
-      clients = vim.lsp.get_clients({ bufnr = 0 })
+      clients = vim.lsp.get_clients { bufnr = 0 }
     end
     for _, client in ipairs(clients) do
       local name = client.name
       client.stop()
       vim.defer_fn(function()
-        if configs[name] then configs[name].launch() end
+        if configs[name] then
+          configs[name].launch()
+        end
       end, 500)
     end
-  end, { desc = 'Restarts the given language server(s)', nargs = '?', complete = function(arg)
-    return vim.tbl_filter(function(s) return s:sub(1, #arg) == arg end,
-      vim.tbl_map(function(c) return c.name end, vim.lsp.get_clients()))
-  end })
+  end, {
+    desc = 'Restarts the given language server(s)',
+    nargs = '?',
+    complete = function(arg)
+      return vim.tbl_filter(
+        function(s)
+          return s:sub(1, #arg) == arg
+        end,
+        vim.tbl_map(function(c)
+          return c.name
+        end, vim.lsp.get_clients())
+      )
+    end,
+  })
 end
