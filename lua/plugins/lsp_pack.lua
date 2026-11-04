@@ -65,10 +65,18 @@ local servers = {
   gopls = {},
   ts_ls = {},
   eslint = {},
+  ltex_plus = {
+    filetypes = { 'markdown', 'tex', 'latex' },
+    settings = {
+      ltex = {
+        language = 'fr',
+      },
+    },
+  },
 }
 
 local ensure_installed = vim.tbl_keys(servers)
-vim.list_extend(ensure_installed, { 'stylua', 'jsonlint', 'eslint-lsp', 'prettierd', 'typescript-language-server' })
+vim.list_extend(ensure_installed, { 'stylua', 'jsonlint', 'eslint-lsp', 'prettierd', 'typescript-language-server', 'ltex-ls-plus' })
 
 require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -125,6 +133,16 @@ require('mason-lspconfig').setup {
     end,
   },
 }
+
+-- 7b. ltex-ls-plus: force French by default via the Nvim 0.11 vim.lsp.config API
+-- (mason-lspconfig auto-enables servers; this merges our settings into the config)
+vim.lsp.config('ltex_plus', {
+  settings = {
+    ltex = {
+      language = 'fr',
+    },
+  },
+})
 
 -- 8. Conform (Autoformatting)
 require('conform').setup {
@@ -186,7 +204,13 @@ require('blink.cmp').setup {
     },
   },
   sources = {
-    default = { 'lsp', 'path', 'snippets', 'buffer' },
+    default = { 'lsp', 'path', 'snippets', 'buffer', 'french_dict' },
+    providers = {
+      french_dict = {
+        module = 'sources.french_dict',
+        score_offset = -3,
+      },
+    },
   },
   completion = {
     menu = {

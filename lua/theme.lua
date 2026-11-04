@@ -10,10 +10,7 @@ vim.pack.add {
 }
 
 -- 1. Gruber-Darker Config
-require('gruber-darker').setup {
-  -- bold = false,
-  -- italic = { strings = false },
-}
+require('gruber-darker').setup {}
 
 -- 2. Rose-Pine Config
 require('rose-pine').setup {
@@ -67,11 +64,11 @@ require('vague').setup {
 
 -- local color = 'vague'
 -- local color = 'rose-pine'
--- local color = 'gruber-darker'
+local color = 'gruber-darker'
 -- local color = 'zenbones'
 -- local color = 'aquarium'
 -- local color = 'tokyonight-night'
-local color = 'adwaita'
+-- local color = 'adwaita'
 function ColorMyPencils(colorFunc)
   if colorFunc then
     colorFunc = tostring(colorFunc)

@@ -1,6 +1,7 @@
 vim.opt.termguicolors = true
 -- vim.cmd 'colorscheme base16-default-dark'
 vim.opt.wildignore:append { '**/.git/**', '**/node_modules/**', '**/build/**', '*.o', '*.pyc', '*.swp' }
+vim.keymap.set({ 'n', 'i', 'v' }, '<F1>', '<Nop>', { noremap = true, silent = true })
 
 vim.g.have_nerd_font = true
 vim.g.shiftwidth = 4
