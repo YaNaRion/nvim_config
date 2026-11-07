@@ -11,8 +11,8 @@ vim.pack.add {
 
 -- 1. Gruber-Darker Config
 require('gruber-darker').setup {
-  -- bold = false,
-  -- italic = { strings = false },
+  bold = false,
+  italic = { strings = false },
 }
 
 -- 2. Rose-Pine Config
@@ -70,8 +70,8 @@ require('vague').setup {
 -- local color = 'gruber-darker'
 -- local color = 'zenbones'
 -- local color = 'aquarium'
--- local color = 'tokyonight-night'
-local color = 'adwaita'
+local color = 'tokyonight-night'
+-- local color = 'adwaita'
 function ColorMyPencils(colorFunc)
   if colorFunc then
     colorFunc = tostring(colorFunc)
@@ -80,19 +80,53 @@ function ColorMyPencils(colorFunc)
     vim.cmd.colorscheme(color)
   end
 
-  -- vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-  -- vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
-  -- vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
-  -- vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
-  -- vim.api.nvim_set_hl(0, 'SignColumn', { bg = 'none' })
-  -- vim.api.nvim_set_hl(0, 'VertSplit', { bg = 'none' })
-  -- vim.api.nvim_set_hl(0, 'StatusLine', { bg = 'none' })
-  -- vim.api.nvim_set_hl(0, 'TabLineFill', { bg = 'none' })
-  -- vim.api.nvim_set_hl(0, 'EndOfBuffer', { bg = 'none', fg = 'none' })
-  -- vim.api.nvim_set_hl(0, 'LineNr', { bg = 'none' })
-  -- vim.api.nvim_set_hl(0, 'CursorLineNr', { bg = 'none' })
-  -- vim.api.nvim_set_hl(0, 'LineNrAbove', { bg = 'none' })
-  -- vim.api.nvim_set_hl(0, 'LineNrBelow', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'SignColumn', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'VertSplit', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'StatusLine', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'TabLineFill', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'EndOfBuffer', { bg = 'none', fg = 'none' })
+  vim.api.nvim_set_hl(0, 'LineNr', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'CursorLineNr', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'LineNrAbove', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'LineNrBelow', { bg = 'none' })
 end
 
 ColorMyPencils()
+
+-- Use a different colorscheme per filetype.
+-- Colorschemes are global, so this switches the active theme to match the
+-- filetype of the buffer you are currently in.
+local theme_by_ft = {
+  default = 'vague',
+  markdown = 'tokyonight-night',
+  python = 'gruber-darker',
+  lua = 'gruber-darker',
+  rust = 'rose-pine',
+  go = 'rose-pine',
+}
+
+local active_theme
+
+local function theme_for(buf)
+  return theme_by_ft[vim.bo[buf].filetype] or theme_by_ft.default
+end
+
+vim.api.nvim_create_autocmd({ 'BufEnter', 'FileType' }, {
+  callback = function(ev)
+    -- Skip terminals, quickfix, nofile buffers, etc.
+    if vim.bo[ev.buf].buftype ~= '' then
+      return
+    end
+
+    local want = theme_for(ev.buf)
+    if want ~= active_theme then
+      active_theme = want
+      -- Go through ColorMyPencils so the transparency tweaks are re-applied.
+      ColorMyPencils(want)
+    end
+  end,
+})
