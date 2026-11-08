@@ -11,7 +11,10 @@ vim.pack.add {
 }
 
 -- 1. Gruber-Darker Config
-require('gruber-darker').setup {}
+require('gruber-darker').setup {
+  bold = false,
+  italic = { strings = false },
+}
 
 -- 2. Rose-Pine Config
 require('rose-pine').setup {
@@ -70,7 +73,8 @@ require('vague').setup {
 -- local color = 'aquarium'
 -- local color = 'tokyonight-night'
 -- local color = 'adwaita'
-local color = 'github_dark'
+local color = 'tokyonight-night'
+-- local color = 'adwaita'
 function ColorMyPencils(colorFunc)
   if colorFunc then
     colorFunc = tostring(colorFunc)
@@ -105,3 +109,37 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 ColorMyPencils()
+
+-- Use a different colorscheme per filetype.
+-- Colorschemes are global, so this switches the active theme to match the
+-- filetype of the buffer you are currently in.
+local theme_by_ft = {
+  default = 'vague',
+  markdown = 'tokyonight-night',
+  python = 'gruber-darker',
+  lua = 'gruber-darker',
+  rust = 'rose-pine',
+  go = 'rose-pine',
+}
+
+local active_theme
+
+local function theme_for(buf)
+  return theme_by_ft[vim.bo[buf].filetype] or theme_by_ft.default
+end
+
+vim.api.nvim_create_autocmd({ 'BufEnter', 'FileType' }, {
+  callback = function(ev)
+    -- Skip terminals, quickfix, nofile buffers, etc.
+    if vim.bo[ev.buf].buftype ~= '' then
+      return
+    end
+
+    local want = theme_for(ev.buf)
+    if want ~= active_theme then
+      active_theme = want
+      -- Go through ColorMyPencils so the transparency tweaks are re-applied.
+      ColorMyPencils(want)
+    end
+  end,
+})
