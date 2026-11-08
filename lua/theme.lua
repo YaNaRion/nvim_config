@@ -7,6 +7,7 @@ vim.pack.add {
   { src = 'https://github.com/vague2k/vague.nvim' },
   { src = 'https://github.com/frenzyexists/aquarium-vim' },
   { src = 'https://github.com/folke/tokyonight.nvim' },
+  { src = 'https://github.com/projekt0n/github-nvim-theme' },
 }
 
 -- 1. Gruber-Darker Config
@@ -64,11 +65,12 @@ require('vague').setup {
 
 -- local color = 'vague'
 -- local color = 'rose-pine'
-local color = 'gruber-darker'
+-- local color = 'gruber-darker'
 -- local color = 'zenbones'
 -- local color = 'aquarium'
 -- local color = 'tokyonight-night'
 -- local color = 'adwaita'
+local color = 'github_dark'
 function ColorMyPencils(colorFunc)
   if colorFunc then
     colorFunc = tostring(colorFunc)
@@ -77,19 +79,19 @@ function ColorMyPencils(colorFunc)
     vim.cmd.colorscheme(color)
   end
 
-  -- vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-  -- vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
-  -- vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
-  -- vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
-  -- vim.api.nvim_set_hl(0, 'SignColumn', { bg = 'none' })
-  -- vim.api.nvim_set_hl(0, 'VertSplit', { bg = 'none' })
-  -- vim.api.nvim_set_hl(0, 'StatusLine', { bg = 'none' })
-  -- vim.api.nvim_set_hl(0, 'TabLineFill', { bg = 'none' })
-  -- vim.api.nvim_set_hl(0, 'EndOfBuffer', { bg = 'none', fg = 'none' })
-  -- vim.api.nvim_set_hl(0, 'LineNr', { bg = 'none' })
-  -- vim.api.nvim_set_hl(0, 'CursorLineNr', { bg = 'none' })
-  -- vim.api.nvim_set_hl(0, 'LineNrAbove', { bg = 'none' })
-  -- vim.api.nvim_set_hl(0, 'LineNrBelow', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'SignColumn', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'VertSplit', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'StatusLine', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'TabLineFill', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'EndOfBuffer', { bg = 'none', fg = 'none' })
+  vim.api.nvim_set_hl(0, 'LineNr', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'CursorLineNr', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'LineNrAbove', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'LineNrBelow', { bg = 'none' })
 end
 -- Add this to your init.lua
 vim.api.nvim_create_autocmd('FileType', {

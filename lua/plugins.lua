@@ -16,4 +16,6 @@ require 'plugins.99'
 require 'kickstart.plugins.debug'
 require 'kickstart.plugins.lint'
 
+require 'plugins.tatr'
+
 require 'theme'

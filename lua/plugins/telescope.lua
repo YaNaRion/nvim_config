@@ -33,6 +33,7 @@ map('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
 map('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files' })
 map('n', '<leader>sc', builtin.commands, { desc = '[S]earch [C]ommands' })
 map('n', '<C-o>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+map('n', '<C-q>', builtin.quickfix, { desc = '[ ] Find quickfix' })
 
 -- Custom Search Functions
 map('n', '<leader>/', function()
